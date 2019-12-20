@@ -41,6 +41,9 @@ export default {
 
 			// post-initialization
 			let elem = document.createElement("script")
+			elem.crossOrigin = "use-credentials"
+			elem.async = "async"
+			elem.charset = "utf-8"
 			elem.src = lxpConfig.server + "/lumis/portal/monitor/script/track.js?_=" + new Date().getTime()
 			document.body.appendChild(elem)
 		}
