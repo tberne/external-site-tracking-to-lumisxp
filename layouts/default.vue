@@ -7,65 +7,17 @@
 				</li>
 			</ul>
 		</nav>
-		<!--<lum-track-page-views />-->
+		<lum-track-page-views />
 		<nuxt />
 	</div>
 </template>
 
 <script>
 import { lxpConfig } from "../lxp.config"
-// import LumTrackPageViews from "../components/LumTrackPageViews.vue"
-let onUnloadCallback = null
+import LumTrackPageViews from "../components/LumTrackPageViews.vue"
 export default {
 	components: {
-	// 	LumTrackPageViews
-	},
-	created() {
-		if( ! window.lum_track ) {
-			window.lum_track=window.lum_track||function(){(lum_track.q=lum_track.q||[]).push([+new Date].concat([].slice.call(arguments)))};
-			lum_track('config',{baseHref:lxpConfig.server});
-
-			let elem = document.createElement("script")
-			elem.src = lxpConfig.server + "/lumis/portal/monitor/script/track.js?_=" + new Date().getTime()
-			document.body.appendChild(elem)
-		}
-
-		this.lastPageviewTime = new Date().getTime()
-		onUnloadCallback = () => {
-			let duration = new Date().getTime() - this.lastPageviewTime
-			lum_track("event", "lumis.portal.monitor.ev.leavepage", {
-				"lum_event.duration": duration,
-				"lum_request.mode.id": "0"
-			})
-		}
-		window.onbeforeunload = onUnloadCallback
-	},
-	data() {
-		return {
-			lastPageviewTime: new Date().getTime()
-		}
-	},
-	beforeDestroy() {
-		delete window.onbeforeunload
-		onUnloadCallback = null
-	},
-	watch: {
-		"$route" ( next, prev ){
-			if ( prev ) {
-				let duration = new Date().getTime() - this.lastPageviewTime
-				lum_track("event", "lumis.portal.monitor.ev.leavepage", {
-					"lum_event.duration": duration,
-					"lum_client.url": window.location.origin + prev.path,
-					"lum_request.mode.id": "0"
-				})
-			}
-
-			if ( next ) {
-				lum_track("event", "lumis.portal.monitor.ev.pageview", {
-					"lum_request.mode.id": "0"
-				})
-			}
-		}
+	 	LumTrackPageViews
 	}
 }
 </script>
