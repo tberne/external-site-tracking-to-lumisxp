@@ -34,7 +34,8 @@ export default {
 		onUnloadCallback = () => {
 			let duration = new Date().getTime() - this.lastPageviewTime
 			lum_track("event", "lumis.portal.monitor.ev.leavepage", {
-				"lum_event.duration": duration
+				"lum_event.duration": duration,
+				"lum_request.mode.id": "0"
 			})
 		}
 		window.onbeforeunload = onUnloadCallback
@@ -54,12 +55,15 @@ export default {
 				let duration = new Date().getTime() - this.lastPageviewTime
 				lum_track("event", "lumis.portal.monitor.ev.leavepage", {
 					"lum_event.duration": duration,
-					"lum_client.url": window.location.origin + prev.path
+					"lum_client.url": window.location.origin + prev.path,
+					"lum_request.mode.id": "0"
 				})
 			}
 
 			if ( next ) {
-				lum_track("event", "lumis.portal.monitor.ev.pageview")
+				lum_track("event", "lumis.portal.monitor.ev.pageview", {
+					"lum_request.mode.id": "0"
+				})
 			}
 		}
 	}
