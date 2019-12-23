@@ -26,6 +26,8 @@ let collectPageView = () => {
 	lum_track("event", "lumis.portal.monitor.ev.pageview", {
 		"lum_request.mode.id": "0"
 	})
+
+	lastPageviewTime = new Date().getTime()
 }
 
 let onUnloadCallback = null
